@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Purchases and Earnings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Track Purchases and Earnings</h1>
+        
+        <div class="input-section">
+            <label for="date">Date of Purchase:</label>
+            <input type="date" id="date" required>
+
+            <label for="purchase">Purchase Amount ($):</label>
+            <input type="number" id="purchase" placeholder="Enter amount in $" required>
+
+            <label for="earning">Earnings ($):</label>
+            <input type="number" id="earning" placeholder="Enter earnings in $" required>
+
+            <button id="add-btn">Add Purchase</button>
+        </div>
+
+        <div class="summary-section">
+            <h2>Summary</h2>
+            <p>Total Purchases: <span id="total-purchases">$0 / €0</span></p>
+            <p>Total Earnings: <span id="total-earnings">$0 / €0</span></p>
+            <p>Projected Earnings after 60 days: <span id="projected-earnings">$0 / €0</span></p>
+            <p>Earnings until the end of this month: <span id="month-end-earnings">$0 / €0</span></p> <!-- Novi prikaz -->
+        </div>
+
+        <div class="table-section">
+            <h2>Purchase List</h2>
+            <table id="purchase-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Purchase ($)</th>
+                        <th>Purchase (€)</th>
+                        <th>Earnings ($)</th>
+                        <th>Earnings (€)</th>
+                        <th>Expiry Date</th>
+                        <th>Actions</th> <!-- Novi stupac za akcije -->
+                    </tr>
+                </thead>
+                <tbody id="purchase-list"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
