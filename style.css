@@ -53,6 +53,10 @@ button:hover {
     background-color: #0056b3; /* Tamnija plava pri hover */
 }
 
+.table-section {
+    overflow-x: auto; /* Omogućava pomicanje tablice na manjim ekranima */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -63,6 +67,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    word-break: break-word; /* Prelomi riječi ako je potrebno */
 }
 
 th {
@@ -116,5 +121,18 @@ tbody tr:nth-child(even) {
 
     td, th {
         padding: 5px; /* Manje unutarnje margine u tablici */
+    }
+
+    th {
+        font-size: 0.9rem; /* Manji font za zaglavlja */
+    }
+
+    td {
+        font-size: 0.8rem; /* Manji font za ćelije */
+    }
+
+    .edit-btn, .delete-btn {
+        font-size: 0.8rem; /* Manji font za gumbe u tablici */
+        padding: 5px 8px; /* Manje unutarnje margine */
     }
 }
