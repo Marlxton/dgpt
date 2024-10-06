@@ -65,9 +65,13 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px; /* Smanjen padding */
     text-align: center;
     word-break: break-word; /* Prelomi riječi ako je potrebno */
+    max-width: 120px; /* Maksimalna širina za ćelije */
+    overflow: hidden; /* Skriveni sadržaj koji ne stane */
+    text-overflow: ellipsis; /* ... za nepročitani sadržaj */
+    white-space: nowrap; /* Tekst u jednoj liniji */
 }
 
 th {
