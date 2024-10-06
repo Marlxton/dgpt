@@ -86,6 +86,21 @@ function appendPurchaseToTable(purchase, index) {
     table.appendChild(row);
 }
 
+// Function to delete a purchase
+function deletePurchase(index) {
+    let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
+    
+    // Remove the purchase at the specified index
+    purchases.splice(index, 1);
+    
+    // Update localStorage
+    localStorage.setItem('purchases', JSON.stringify(purchases));
+
+    // Refresh the table and update the summary
+    refreshTable();  
+    updateSummary();  
+}
+
 // Function to edit a purchase
 function editPurchase(index) {
     let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
@@ -95,19 +110,8 @@ function editPurchase(index) {
     document.getElementById('purchase').value = purchase.purchaseAmount;
     document.getElementById('earning').value = purchase.earningAmount;
 
-    editIndex = index;
-    document.getElementById('add-btn').textContent = 'Update Purchase';  // Change button text
-}
-
-// Function to delete a purchase
-function deletePurchase(index) {
-    let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-    
-    purchases.splice(index, 1);  // Remove the purchase at the specified index
-    localStorage.setItem('purchases', JSON.stringify(purchases));  // Update localStorage
-
-    refreshTable();  // Refresh the table
-    updateSummary();  // Refresh summary
+    editIndex = index; // Set edit index
+    document.getElementById('add-btn').textContent = 'Update Purchase'; // Change button text
 }
 
 // Function to refresh the table content

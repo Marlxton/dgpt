@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 600px; /* Smanjena širina za mobilne uređaje */
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background-color: #ffffff;
@@ -26,7 +26,7 @@ h1, h2 {
 label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold; /* Podebljano za bolju čitljivost */
+    font-weight: bold;
 }
 
 input {
@@ -35,26 +35,26 @@ input {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Osigurava da padding ne povećava širinu */
+    box-sizing: border-box;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #23ca63; /* Plava boja za dugmad */
+    background-color: #23ca63;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Glatka animacija */
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3; /* Tamnija plava pri hover */
+    background-color: #0056b3;
 }
 
 .table-section {
-    overflow-x: auto; /* Omogućava pomicanje tablice na manjim ekranima */
+    overflow-x: auto;
 }
 
 table {
@@ -65,18 +65,18 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 5px; /* Smanjen padding */
+    padding: 5px;
     text-align: center;
-    word-break: break-word; /* Prelomi riječi ako je potrebno */
-    max-width: 120px; /* Maksimalna širina za ćelije */
-    overflow: hidden; /* Skriveni sadržaj koji ne stane */
-    text-overflow: ellipsis; /* ... za nepročitani sadržaj */
-    white-space: nowrap; /* Tekst u jednoj liniji */
+    word-break: break-word;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 th {
     background-color: #43e389;
-    color: white; /* Bijeli tekst za zaglavlja */
+    color: white;
 }
 
 tbody tr:nth-child(even) {
@@ -84,59 +84,60 @@ tbody tr:nth-child(even) {
 }
 
 .edit-btn, .delete-btn {
-    margin: 2px;
-    padding: 5px 10px;
-    background-color: #31e277;
+    margin: 5px; /* Povećane margine */
+    padding: 8px 12px; /* Povećan padding */
+    background-color: #31e277; /* Boja za Edit dugme */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9rem; /* Povećan font */
 }
 
 .delete-btn {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Boja za Delete dugme */
 }
 
 .edit-btn:hover {
-    background-color: #0056b3;
+    background-color: #28a745; /* Tamnija boja za Edit dugme pri hover */
 }
 
 .delete-btn:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Tamnija boja za Delete dugme pri hover */
 }
 
 /* Responzivni dizajn za mobilne uređaje */
 @media (max-width: 600px) {
     h1, h2 {
-        font-size: 1.5rem; /* Manji font za naslove */
+        font-size: 1.5rem;
     }
 
     .input-section, .summary-section, .table-section {
-        padding: 10px; /* Manje unutarnje margine za mobilne uređaje */
+        padding: 10px;
     }
 
     input, button {
-        font-size: 1rem; /* Uvećanje fonta za lakše korištenje */
+        font-size: 1rem;
     }
 
     table {
-        font-size: 0.9rem; /* Manji font za tablicu */
+        font-size: 0.9rem;
     }
 
     td, th {
-        padding: 5px; /* Manje unutarnje margine u tablici */
+        padding: 5px;
     }
 
     th {
-        font-size: 0.9rem; /* Manji font za zaglavlja */
+        font-size: 0.9rem;
     }
 
     td {
-        font-size: 0.8rem; /* Manji font za ćelije */
+        font-size: 0.8rem;
     }
 
     .edit-btn, .delete-btn {
-        font-size: 0.8rem; /* Manji font za gumbe u tablici */
+        font-size: 0.8rem;
         padding: 5px 8px; /* Manje unutarnje margine */
     }
 }
