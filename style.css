@@ -1,21 +1,22 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 600px; /* Smanjena širina za mobilne uređaje */
     margin: 20px auto;
     padding: 20px;
-    background-color: white;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
     text-align: center;
+    color: #007bff;
 }
 
 .input-section, .summary-section, .table-section {
@@ -25,33 +26,37 @@ h1, h2 {
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold; /* Podebljano za bolju čitljivost */
 }
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-sizing: border-box; /* Osigurava da padding ne povećava širinu */
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #007bff; /* Plava boja za dugmad */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Glatka animacija */
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Tamnija plava pri hover */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
 th, td {
@@ -61,7 +66,8 @@ th, td {
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #007bff;
+    color: white; /* Bijeli tekst za zaglavlja */
 }
 
 tbody tr:nth-child(even) {
@@ -91,34 +97,24 @@ tbody tr:nth-child(even) {
 }
 
 /* Responzivni dizajn za mobilne uređaje */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
+@media (max-width: 600px) {
+    h1, h2 {
+        font-size: 1.5rem; /* Manji font za naslove */
     }
 
-    table, thead, tbody, th, td, tr {
-        display: block;
+    .input-section, .summary-section, .table-section {
+        padding: 10px; /* Manje unutarnje margine za mobilne uređaje */
     }
 
-    thead tr {
-        display: none;
+    input, button {
+        font-size: 1rem; /* Uvećanje fonta za lakše korištenje */
     }
 
-    td {
-        border: none;
-        position: relative;
-        padding-left: 50%;
-        text-align: left;
+    table {
+        font-size: 0.9rem; /* Manji font za tablicu */
     }
 
-    td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        font-weight: bold;
-    }
-
-    td:last-child {
-        border-bottom: 1px solid #ddd;
+    td, th {
+        padding: 5px; /* Manje unutarnje margine u tablici */
     }
 }
