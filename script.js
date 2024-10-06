@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSummary();
 });
 
-// Event listener for adding or updating a purchase
-document.getElementById('add-btn').addEventListener('click', addPurchase);
-
 let editIndex = -1;  // Global variable to track which item is being edited
 
 // Function to add or update a purchase
@@ -27,11 +24,6 @@ function addPurchase() {
     const purchaseInEUR = (purchaseAmount * exchangeRate).toFixed(2);
     const earningInEUR = (earningAmount * exchangeRate).toFixed(2);
 
-    // Calculate expiry date (60 days from the purchase date)
-    const expiryDate = new Date(date);
-    expiryDate.setDate(expiryDate.getDate() + 60);
-    const expiryDateStr = expiryDate.toISOString().split('T')[0];
-
     // Create a purchase object
     const purchase = {
         date,
@@ -39,7 +31,7 @@ function addPurchase() {
         purchaseInEUR,
         earningAmount: earningAmount.toFixed(2),
         earningInEUR,
-        expiryDate: expiryDateStr
+        expiryDate: new Date(new Date(date).setDate(new Date(date).getDate() + 60)).toISOString().split('T')[0]
     };
 
     let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
@@ -65,13 +57,6 @@ function addPurchase() {
     document.getElementById('date').value = '';
     document.getElementById('purchase').value = '';
     document.getElementById('earning').value = '';
-}
-
-// Function to save purchase to localStorage
-function savePurchase(purchase) {
-    let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
-    purchases.push(purchase);
-    localStorage.setItem('purchases', JSON.stringify(purchases));
 }
 
 // Function to load data from localStorage
@@ -138,12 +123,11 @@ function refreshTable() {
 function updateSummary() {
     let purchases = JSON.parse(localStorage.getItem('purchases')) || [];
     let totalPurchasesUSD = 0, totalPurchasesEUR = 0, totalEarningsUSD = 0, totalEarningsEUR = 0;
-    let projectedEarningsUSD = 0, projectedEarningsEUR = 0;
-    let monthEndEarningsUSD = 0, monthEndEarningsEUR = 0;  // New variables for earnings until the end of the month
+    let monthEndEarningsUSD = 0, monthEndEarningsEUR = 0;  // Earnings until the end of the month
+    let projectedEarningsUSD = 0, projectedEarningsEUR = 0; // Projected earnings after 60 days
 
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const endOfMonth = new Date(currentDate.getFullYear(), currentMonth + 1, 0); // Last day of the current month
+    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
 
     purchases.forEach(purchase => {
         totalPurchasesUSD += parseFloat(purchase.purchaseAmount);
@@ -151,26 +135,34 @@ function updateSummary() {
         totalEarningsUSD += parseFloat(purchase.earningAmount);
         totalEarningsEUR += parseFloat(purchase.earningInEUR);
 
-        // Calculate projected earnings over 60 days (multiplying by 60)
-        projectedEarningsUSD += parseFloat(purchase.earningAmount) * 60;
-        projectedEarningsEUR += parseFloat(purchase.earningInEUR) * 60;
-
         // Calculate earnings until the end of the month (based on the purchase date)
         const purchaseDate = new Date(purchase.date);
-        if (purchaseDate.getMonth() === currentMonth) {
-            const daysLeft = Math.min((endOfMonth - purchaseDate) / (1000 * 60 * 60 * 24), 60);
-            monthEndEarningsUSD += parseFloat(purchase.earningAmount) * daysLeft;
-            monthEndEarningsEUR += parseFloat(purchase.earningInEUR) * daysLeft;
+        if (purchaseDate.getMonth() === currentDate.getMonth()) {
+            const daysSincePurchase = Math.floor((currentDate - purchaseDate) / (1000 * 60 * 60 * 24));
+            const dailyEarnings = parseFloat(purchase.earningAmount);
+
+            // Days left until the end of the month
+            const daysLeftInMonth = Math.max(endOfMonth.getDate() - purchaseDate.getDate(), 0);
+
+            // Total earnings until the end of the month
+            const totalEarnings = (daysSincePurchase + daysLeftInMonth) * dailyEarnings;
+
+            monthEndEarningsUSD += totalEarnings;
+            monthEndEarningsEUR += (totalEarnings * exchangeRate); // Convert to EUR
         }
+
+        // Calculate projected earnings after 60 days
+        projectedEarningsUSD += parseFloat(purchase.earningAmount) * 60; // earnings * 60 days
+        projectedEarningsEUR += (parseFloat(purchase.earningInEUR) * 60); // earnings in EUR * 60 days
     });
 
     // Update the total purchases and earnings
     document.getElementById('total-purchases').textContent = `$${totalPurchasesUSD.toFixed(2)} / €${totalPurchasesEUR.toFixed(2)}`;
     document.getElementById('total-earnings').textContent = `$${totalEarningsUSD.toFixed(2)} / €${totalEarningsEUR.toFixed(2)}`;
 
-    // Update the projected earnings over 60 days
-    document.getElementById('projected-earnings').textContent = `$${projectedEarningsUSD.toFixed(2)} / €${projectedEarningsEUR.toFixed(2)}`;
-
     // Update the earnings until the end of the month
     document.getElementById('month-end-earnings').textContent = `$${monthEndEarningsUSD.toFixed(2)} / €${monthEndEarningsEUR.toFixed(2)}`;
+
+    // Update the projected earnings after 60 days
+    document.getElementById('projected-earnings').textContent = `$${projectedEarningsUSD.toFixed(2)} / €${projectedEarningsEUR.toFixed(2)}`;
 }
